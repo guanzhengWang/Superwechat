@@ -6,7 +6,8 @@ import com.bumptech.glide.Glide;
 import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMClient;
 import cn.ucai.superwechat.DemoHelper;
-import com.hyphenate.superwechat.R;
+import cn.ucai.superwechat.R;
+
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 
@@ -96,7 +97,7 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
 			break;
 		case R.id.rl_nickname:
 			final EditText editText = new EditText(this);
-			new AlertDialog.Builder(this).setTitle(R.string.setting_nickname).setIcon(android.R.drawable.ic_dialog_info).setView(editText)
+			new Builder(this).setTitle(R.string.setting_nickname).setIcon(android.R.drawable.ic_dialog_info).setView(editText)
 					.setPositiveButton(R.string.dl_ok, new DialogInterface.OnClickListener() {
 
 						@Override
@@ -144,7 +145,7 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
 	
 	
 	private void uploadHeadPhoto() {
-		AlertDialog.Builder builder = new Builder(this);
+		Builder builder = new Builder(this);
 		builder.setTitle(R.string.dl_title_upload_photo);
 		builder.setItems(new String[] { getString(R.string.dl_msg_take_photo), getString(R.string.dl_msg_local_upload) },
 				new DialogInterface.OnClickListener() {

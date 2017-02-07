@@ -13,7 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.hyphenate.chat.EMClient;
-import com.hyphenate.superwechat.R;
+import cn.ucai.superwechat.R;
 import cn.ucai.superwechat.utils.PreferenceManager;
 import com.hyphenate.easeui.widget.EaseSwitchButton;
 
@@ -125,7 +125,7 @@ public class CallOptionActivity extends BaseActivity implements View.OnClickList
         // for simulator which doesn't has camera, open will fail
         Camera mCameraDevice = null;
         try {
-            mCameraDevice = android.hardware.Camera.open(cameraId);
+            mCameraDevice = Camera.open(cameraId);
             Camera.Parameters parameters = mCameraDevice.getParameters();
 
             final List<Camera.Size> sizes = parameters.getSupportedPreviewSizes();

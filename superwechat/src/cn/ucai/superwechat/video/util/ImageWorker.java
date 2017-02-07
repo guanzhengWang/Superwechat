@@ -32,8 +32,7 @@ import android.os.AsyncTask;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.widget.ImageView;
-
-import com.hyphenate.superwechat.BuildConfig;
+import cn.ucai.superwechat.BuildConfig;
 
 /**
  * This class wraps up completing some arbitrary long running work when loading a bitmap to an
@@ -69,7 +68,7 @@ public abstract class ImageWorker {
      * Load an image specified by the data parameter into an ImageView (override
      * {@link ImageWorker#processBitmap(Object)} to define the processing logic). A memory and
      * disk cache will be used if an {@link ImageCache} has been added using
-     * {@link ImageWorker#addImageCache(android.support.v4.app.FragmentManager, ImageCache.ImageCacheParams)}. If the
+     * {@link ImageWorker#addImageCache(FragmentManager, ImageCache.ImageCacheParams)}. If the
      * image is found in the memory cache, it is set immediately, otherwise an {@link AsyncTask}
      * will be created to asynchronously load the bitmap.
      *
@@ -155,7 +154,7 @@ public abstract class ImageWorker {
      * example, you could resize a large bitmap here, or pull down an image from the network.
      *
      * @param data The data to identify which image to process, as provided by
-     *            {@link ImageWorker#loadImage(Object, android.widget.ImageView)}
+     *            {@link ImageWorker#loadImage(Object, ImageView)}
      * @return The processed bitmap
      */
     protected abstract Bitmap processBitmap(Object data);

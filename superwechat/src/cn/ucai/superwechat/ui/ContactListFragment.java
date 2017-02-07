@@ -18,8 +18,7 @@ import java.util.Map;
 
 import com.hyphenate.chat.EMClient;
 import cn.ucai.superwechat.DemoHelper;
-import cn.ucai.superwechat.DemoHelper.DataSyncListener;
-import com.hyphenate.superwechat.R;
+import cn.ucai.superwechat.R;
 import cn.ucai.superwechat.db.InviteMessgeDao;
 import cn.ucai.superwechat.db.UserDao;
 import cn.ucai.superwechat.widget.ContactItemView;
@@ -274,7 +273,7 @@ public class ContactListFragment extends EaseContactListFragment {
 
 	}
 	
-	class ContactSyncListener implements DataSyncListener{
+	class ContactSyncListener implements DemoHelper.DataSyncListener {
         @Override
         public void onSyncComplete(final boolean success) {
             EMLog.d(TAG, "on contact list sync success:" + success);
@@ -300,7 +299,7 @@ public class ContactListFragment extends EaseContactListFragment {
         }
     }
     
-    class BlackListSyncListener implements DataSyncListener{
+    class BlackListSyncListener implements DemoHelper.DataSyncListener {
 
         @Override
         public void onSyncComplete(boolean success) {
@@ -315,7 +314,7 @@ public class ContactListFragment extends EaseContactListFragment {
         
     }
 
-    class ContactInfoSyncListener implements DataSyncListener{
+    class ContactInfoSyncListener implements DemoHelper.DataSyncListener {
 
         @Override
         public void onSyncComplete(final boolean success) {

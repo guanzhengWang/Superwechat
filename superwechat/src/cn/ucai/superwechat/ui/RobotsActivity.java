@@ -36,7 +36,7 @@ import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMContact;
 import cn.ucai.superwechat.DemoHelper;
-import com.hyphenate.superwechat.R;
+import cn.ucai.superwechat.R;
 import cn.ucai.superwechat.db.UserDao;
 import cn.ucai.superwechat.domain.RobotUser;
 import com.hyphenate.exceptions.HyphenateException;
@@ -61,7 +61,7 @@ public class RobotsActivity extends BaseActivity {
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.em_fragment_robots);
-		inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+		inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		ListView mListView = (ListView) findViewById(R.id.list);
 		swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_layout);
 		if (android.os.Build.VERSION.SDK_INT >= 14) {
