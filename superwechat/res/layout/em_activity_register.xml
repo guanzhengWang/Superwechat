@@ -4,36 +4,47 @@
     android:layout_height="match_parent"
     android:background="#eff2f6"
     android:orientation="vertical" >
+    <include android:id="@+id/lr_title" layout="@layout/layout_item_pop"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1" >
+        android:layout_height="54dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="#fff" >
 
         <ImageView
+            android:id="@+id/iv_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:src="@drawable/em_welcom_logo" />
-    </RelativeLayout>
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:src="@drawable/em_icon_account" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_weight="1.5"
-        android:orientation="vertical" >
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/iv_username"
+            android:background="@null"
+            android:hint="@string/user_name"
+            android:paddingLeft="10dip"
+            android:singleLine="true"
+            android:textSize="18sp" />
+    </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="54dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
             android:background="#fff" >
 
             <ImageView
-                android:id="@+id/iv_username"
+                android:id="@+id/iv_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -42,13 +53,13 @@
                 android:src="@drawable/em_icon_account" />
 
             <EditText
-                android:id="@+id/username"
+                android:id="@+id/et_nickname"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/iv_username"
+                android:layout_toLeftOf="@id/iv_nickname"
                 android:background="@null"
-                android:hint="@string/user_name"
+                android:hint="@string/nickname"
                 android:paddingLeft="10dip"
                 android:singleLine="true"
                 android:textSize="18sp" />
@@ -125,6 +136,7 @@
             android:orientation="horizontal" >
 
             <Button
+                android:id="@+id/btn_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
@@ -138,6 +150,5 @@
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
         </LinearLayout>
-    </LinearLayout>
 
 </LinearLayout>
