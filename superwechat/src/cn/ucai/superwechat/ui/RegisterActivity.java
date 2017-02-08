@@ -19,6 +19,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hyphenate.EMError;
@@ -38,8 +39,6 @@ import cn.ucai.superwechat.utils.CommonUtils;
 import cn.ucai.superwechat.utils.MFGT;
 import cn.ucai.superwechat.utils.ResultUtils;
 
-import static cn.ucai.superwechat.I.MSG_REGISTER_USERNAME_EXISTS;
-
 /**
  * register screen
  */
@@ -54,21 +53,26 @@ public class RegisterActivity extends BaseActivity {
     EditText confirmPassword;
     @BindView(R.id.img_back)
     ImageView imgBack;
-    String uname ;
+    String uname;
     String usernick;
-    String pwd ;
+    String pwd;
     ProgressDialog pd;
+    @BindView(R.id.txt_title)
+    TextView txtTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.em_activity_register);
         ButterKnife.bind(this);
         imgBack.setVisibility(View.VISIBLE);
+        txtTitle.setVisibility(View.VISIBLE);
+        txtTitle.setText(R.string.register);
     }
 
     public void register() {
         uname = username.getText().toString().trim();
-        usernick=etNickname.getText().toString().trim();
+        usernick = etNickname.getText().toString().trim();
         pwd = password.getText().toString().trim();
         String confirm_pwd = confirmPassword.getText().toString().trim();
         if (TextUtils.isEmpty(uname)) {
@@ -95,35 +99,35 @@ public class RegisterActivity extends BaseActivity {
             registerAppServer();
 
 
+        }
+
+
     }
-
-
-}
 
     private void registerAppServer() {
         //注册自己的服务器账号
         NetDao.register(this, uname, usernick, pwd, new OnCompleteListener<String>() {
             @Override
             public void onSuccess(String s) {
-                if(s!=null){
+                if (s != null) {
                     Result result = ResultUtils.getResultFromJson(s, null);
-                    if(result!=null){
-                        if(result.isRetMsg()){
+                    if (result != null) {
+                        if (result.isRetMsg()) {
                             //注册成功后再注册环信
                             registerEMServer();
-                        }else{
+                        } else {
                             pd.dismiss();
-                            if(result.getRetCode()== I.MSG_REGISTER_USERNAME_EXISTS){
+                            if (result.getRetCode() == I.MSG_REGISTER_USERNAME_EXISTS) {
                                 CommonUtils.showLongToast(R.string.User_already_exists);
-                            }else{
+                            } else {
                                 CommonUtils.showLongToast(R.string.Registration_failed);
                             }
                         }
-                    }else{
+                    } else {
                         pd.dismiss();
                         CommonUtils.showLongToast(R.string.Registration_failed);
                     }
-                }else{
+                } else {
                     pd.dismiss();
                     CommonUtils.showLongToast(R.string.Registration_failed);
                 }
