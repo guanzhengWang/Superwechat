@@ -35,7 +35,17 @@ public class UserDao {
 	public static final String ROBOT_COLUMN_NAME_ID = "username";
 	public static final String ROBOT_COLUMN_NAME_NICK = "nick";
 	public static final String ROBOT_COLUMN_NAME_AVATAR = "avatar";
-	
+
+	public static final String USER_TABLE_NAME = "t_superwechat_user";
+	public static final String USER_COLUMN_NAME = "m_user_name";
+	public static final String USER_COLUMN_NAME_NICK = "m_user_nick";
+	public static final String USER_COLUMN_NAME_AVATAR_ID = "m_avatar_id";					//主键
+	public static final String USER_COLUMN_NAME_AVATAR_NAME ="m_avatar_user_name";			//用户账号或者群组账号
+	public static final String USER_COLUMN_NAME_AVATAR_SUFFIX  ="m_avatar_suffix";              //头像后缀名
+	public static final String USER_COLUMN_NAME_AVATAR_PATH = "m_avatar_path";				//保存路径
+	public static final String USER_COLUMN_NAME_AVATAR_TYPE = "m_avatar_type";				//头像类型：\n0:用户头像\n1:群组头像
+	public static final String USER_COLUMN_NAME_AVATAR_UPDATE_TIME = "m_avatar_last_update_time";	//最后更新时间
+
 	
 	public UserDao(Context context) {
 	}
