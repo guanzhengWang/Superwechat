@@ -36,6 +36,7 @@ import cn.ucai.superwechat.domain.Result;
 import cn.ucai.superwechat.net.NetDao;
 import cn.ucai.superwechat.net.OnCompleteListener;
 import cn.ucai.superwechat.utils.CommonUtils;
+import cn.ucai.superwechat.utils.MD5;
 import cn.ucai.superwechat.utils.MFGT;
 import cn.ucai.superwechat.utils.ResultUtils;
 
@@ -106,7 +107,7 @@ public class RegisterActivity extends BaseActivity {
 
     private void registerAppServer() {
         //注册自己的服务器账号
-        NetDao.register(this, uname, usernick, pwd, new OnCompleteListener<String>() {
+        NetDao.register(this, uname, usernick,pwd, new OnCompleteListener<String>() {
             @Override
             public void onSuccess(String s) {
                 if (s != null) {
@@ -159,7 +160,7 @@ public class RegisterActivity extends BaseActivity {
             public void run() {
                 try {
                     // call method in SDK
-                    EMClient.getInstance().createAccount(uname, pwd);
+                    EMClient.getInstance().createAccount(uname, MD5.getMessageDigest(pwd));
                     runOnUiThread(new Runnable() {
                         public void run() {
                             if (!RegisterActivity.this.isFinishing())

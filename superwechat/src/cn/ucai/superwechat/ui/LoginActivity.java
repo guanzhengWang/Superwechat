@@ -13,6 +13,7 @@
  */
 package cn.ucai.superwechat.ui;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
@@ -45,6 +46,7 @@ import cn.ucai.superwechat.domain.Result;
 import cn.ucai.superwechat.net.NetDao;
 import cn.ucai.superwechat.net.OnCompleteListener;
 import cn.ucai.superwechat.utils.CommonUtils;
+import cn.ucai.superwechat.utils.MD5;
 import cn.ucai.superwechat.utils.MFGT;
 import cn.ucai.superwechat.utils.ResultUtils;
 
@@ -154,10 +156,12 @@ public class LoginActivity extends BaseActivity {
         final long start = System.currentTimeMillis();
         // call login method
         Log.d(TAG, "EMClient.getInstance().login");
-        loginAppServer();
+       // loginAppServer();
+        loginEMServer();
+
     }
 
-    private void loginAppServer() {
+    /*private void loginAppServer() {
         NetDao.Login(this, currentUsername, currentPassword, new OnCompleteListener<String>() {
             @Override
             public void onSuccess(String s) {
@@ -189,10 +193,10 @@ public class LoginActivity extends BaseActivity {
             }
         });
 
-    }
+    }*/
 
     private void loginEMServer() {
-        EMClient.getInstance().login(currentUsername, currentPassword, new EMCallBack() {
+        EMClient.getInstance().login(currentUsername, MD5.getMessageDigest(currentPassword), new EMCallBack() {
 
             @Override
             public void onSuccess() {
@@ -214,7 +218,7 @@ public class LoginActivity extends BaseActivity {
                     pd.dismiss();
                 }
                 // get user's info (this should be get from App's server or 3rd party service)
-                SuperWeChatHelper.getInstance().getUserProfileManager().asyncGetCurrentUserInfo();
+                SuperWeChatHelper.getInstance().getUserProfileManager().asyncGetCurrentUserInfo(LoginActivity.this);
 
                 Intent intent = new Intent(LoginActivity.this,
                         MainActivity.class);
