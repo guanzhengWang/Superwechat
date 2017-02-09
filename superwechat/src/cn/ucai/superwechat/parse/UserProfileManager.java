@@ -8,9 +8,12 @@ import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMClient;
 import cn.ucai.superwechat.SuperWeChatHelper;
 import cn.ucai.superwechat.SuperWeChatHelper.DataSyncListener;
+import cn.ucai.superwechat.domain.Result;
 import cn.ucai.superwechat.net.NetDao;
 import cn.ucai.superwechat.net.OnCompleteListener;
 import cn.ucai.superwechat.utils.PreferenceManager;
+import cn.ucai.superwechat.utils.ResultUtils;
+
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.domain.User;
 
@@ -152,8 +155,8 @@ public class UserProfileManager {
 			public void onSuccess(EaseUser value) {
 			    if(value != null){
 					Log.e("VVVVV","value="+value);
-    				setCurrentUserNick(value.getNick());
-    				setCurrentUserAvatar(value.getAvatar());
+    				/*setCurrentUserNick(value.getNick());
+    				setCurrentUserAvatar(value.getAvatar());*/
 			    }
 			}
 
@@ -164,8 +167,15 @@ public class UserProfileManager {
 		});
 		NetDao.GetUserByUsername(activity, EMClient.getInstance().getCurrentUser(), new OnCompleteListener<String>() {
 			@Override
-			public void onSuccess(String result) {
-				Log.e("UUUUU","result"+result);
+			public void onSuccess(String s) {
+				Log.e("UUUUU","result"+s);
+				if(s!=null){
+					Result result = ResultUtils.getResultFromJson(s, String.class);
+					if(result!=null&& result.isRetMsg()){
+						User user= (User) result.getRetData();
+						setCurrentUserNick(user.getMUserNick());
+					}
+				}
 			}
 
 			@Override

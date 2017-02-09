@@ -48,6 +48,7 @@ import com.hyphenate.easeui.controller.EaseUI.EaseEmojiconInfoProvider;
 import com.hyphenate.easeui.domain.EaseEmojicon;
 import com.hyphenate.easeui.domain.EaseEmojiconGroupEntity;
 import com.hyphenate.easeui.domain.EaseUser;
+import com.hyphenate.easeui.domain.User;
 import com.hyphenate.easeui.model.EaseAtMessageHelper;
 import com.hyphenate.easeui.model.EaseNotifier;
 import com.hyphenate.easeui.model.EaseNotifier.EaseNotificationInfoProvider;
@@ -84,7 +85,7 @@ public class SuperWeChatHelper {
     protected EMMessageListener messageListener = null;
 
 	private Map<String, EaseUser> contactList;
-
+    private Map<String, User> appContactList;
 	private Map<String, RobotUser> robotList;
 
 	private UserProfileManager userProManager;
