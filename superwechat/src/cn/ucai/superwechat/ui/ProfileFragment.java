@@ -62,12 +62,18 @@ public class ProfileFragment extends Fragment {
         initData();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        initData();
+    }
+
     private void initData() {
         String username = EMClient.getInstance().getCurrentUser();
         tvProfileUserName.setText("微信号:" + username);
         Log.e("ProfileFragment",tvProfileUserName.toString());
         EaseUserUtils.setAppUserNick(username, tvProfileUserNick);
-        Log.e("ProfileFragment",tvProfileUserNick.toString());
+        Log.e("ProfileFragment1",tvProfileUserNick.toString());
         EaseUserUtils.setAppUserAvatar(getContext(), username, ivProfileAvatar);
     }
 

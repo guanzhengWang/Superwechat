@@ -70,7 +70,7 @@
             
             />
         <RelativeLayout 
-            android:id="@+id/rl_nickname"
+            android:id="@+id/rl_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ffffff"

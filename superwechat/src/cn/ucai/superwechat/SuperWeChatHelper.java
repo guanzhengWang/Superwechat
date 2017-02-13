@@ -85,7 +85,9 @@ public class SuperWeChatHelper {
     protected EMMessageListener messageListener = null;
 
 	private Map<String, EaseUser> contactList;
+
     private Map<String, User> appContactList;
+
 	private Map<String, RobotUser> robotList;
 
 	private UserProfileManager userProManager;
