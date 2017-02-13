@@ -25,9 +25,15 @@ import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.domain.User;
+import com.hyphenate.easeui.utils.EaseImageUtils;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -167,6 +173,61 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
         });
     }
 
+    private void uploadAppUserAvatar(Intent picdata){
+        File file=saveBitmapFile(picdata);
+        if(file==null){
+            return;
+        }
+        dialog = ProgressDialog.show(this,getString(R.string.dl_title_upload_photo), getString(R.string.dl_waiting));
+        NetDao.uploadUserAvatar(this, EMClient.getInstance().getCurrentUser(), file, new OnCompleteListener<String>() {
+            @Override
+            public void onSuccess(String s) {
+                if(s!=null){
+                    Result result = ResultUtils.getResultFromJson(s, User.class);
+                    if(result!=null){
+                        if(result.isRetMsg()){
+                            User user= (User) result.getRetData();
+                            if(user!=null){
+                                PreferenceManager.getInstance().setCurrentUserAvatar(user.getAvatar());
+                                SuperWeChatHelper.getInstance().saveAppContact(user);
+                                EaseUserUtils.setAppUserAvatar(UserProfileActivity.this,user.getMUserName(),userHeadAvatar);
+                                CommonUtils.showLongToast(R.string.toast_updatephoto_success);
+                            }
+                        }
+                    }
+                }
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onError(String error) {
+                dialog.dismiss();
+                CommonUtils.showLongToast(R.string.toast_updatephoto_fail);
+            }
+        });
+    }
+
+    private File saveBitmapFile(Intent picdata) {
+        Bundle extra=picdata.getExtras();
+        if(extra!=null){
+            Bitmap bitmap=extra.getParcelable("data");
+            String imagePath= EaseImageUtils.getImagePath(EMClient.getInstance().getCurrentUser()+I.AVATAR_SUFFIX_JPG);
+            File file=new File(imagePath);
+            Log.e("filepath=",file.getAbsolutePath());
+            try {
+                BufferedOutputStream bos=new BufferedOutputStream(new FileOutputStream(file));
+                bitmap.compress(Bitmap.CompressFormat.JPEG,100,bos);
+                bos.flush();
+                bos.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return file;
+        }
+        return null;
+    }
 
     private void uploadHeadPhoto() {
         Builder builder = new Builder(this);
@@ -276,7 +337,7 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
                 break;
             case REQUESTCODE_CUTTING:
                 if (data != null) {
-                    setPicToView(data);
+                    uploadAppUserAvatar(data);
                 }
                 break;
             default:

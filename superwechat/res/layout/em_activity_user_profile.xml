@@ -51,7 +51,7 @@
                 android:src="@drawable/em_default_avatar"
                 />
             <ImageView 
-                android:id="@+id/user_head_headphoto_update"
+                android:id="@+id/user_head_photo_update"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/user_head_avatar"
