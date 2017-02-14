@@ -31,6 +31,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,10 +86,10 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
     MFViewPager layoutViewpage;
     @BindView(R.id.layout_tabHost)
     DMTabHost layoutTabHost;
-    /*// textview for unread message count
-	private TextView unreadLabel;
+    // textview for unread message count
+	//private TextView unreadLabel;
 	// textview for unread event message
-	private TextView unreadAddressLable;*/
+	//private TextView unreadAddressLable;
 
     private Button[] mTabs;
     private ContactListFragment contactListFragment;
@@ -460,17 +461,21 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
      * update the total unread count
      */
     public void updateUnreadAddressLable() {
-		/*runOnUiThread(new Runnable() {
+		runOnUiThread(new Runnable() {
 			public void run() {
 				int count = getUnreadAddressCountTotal();
-				if (count > 0) {
-					unreadAddressLable.setVisibility(View.VISIBLE);
-				} else {
-					unreadAddressLable.setVisibility(View.INVISIBLE);
+                Log.e("MainActivity1","count="+count);
+                if (count > 1) {
+                    layoutTabHost.setUnreadCount(1,count);
+				}else if(count==1){
+                    layoutTabHost.setHasNew(1,true);
+                }
+                else {
+                    layoutTabHost.setHasNew(1,false);
 				}
 			}
 		});
-*/
+
     }
 
     /**
