@@ -142,7 +142,7 @@ public class TitlePopup extends PopupWindow {
 			public View getView(int position, View convertView, ViewGroup parent) {
 				if (convertView == null) {
 					convertView = LayoutInflater.from(mContext).inflate(
-							R.layout.layout_item_pop, parent, false);
+							R.layout.pop_item, parent, false);
 				}
 				TextView textView = ViewHolder.get(convertView, R.id.txt_title);
 				textView.setTextColor(mContext.getResources().getColor(
