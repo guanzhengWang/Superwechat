@@ -2,6 +2,7 @@ package cn.ucai.superwechat;
 
 public interface I {
 
+
 	public static interface User {
 		String TABLE_NAME							=		"t_superwechat_user";
 		String USER_NAME 							= 		"m_user_name";					//用户账号
@@ -206,4 +207,7 @@ public interface I {
 	String REQUEST_UPDATE_LOCATION 					= 		"updateLocation";
 	/** 客户端发送的分页下载附近的人的请求 */
 	String REQUEST_DOWNLOAD_LOCATION 				= 		"downloadLocation";
+	/*从聊天界面返回主界面*/
+	String BACK_MAIN_FROM_CHAT 					 	= 		"back_main_from_chat" ;
+
 }
