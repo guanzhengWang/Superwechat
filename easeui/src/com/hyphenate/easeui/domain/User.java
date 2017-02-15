@@ -94,16 +94,18 @@ public class User implements Serializable {
 		return mavatarSuffix==null?".jpg":mavatarSuffix;
 	}
 
-//	public String getInitialLetter() {
-//		if(initialLetter == null){
-//			UserUtils.setUserInitialLetter(this);
-//		}
-//		return initialLetter;
-//	}
-//
-//	public void setInitialLetter(String initialLetter) {
-//		this.initialLetter = initialLetter;
-//	}
+/*
+	public String getInitialLetter() {
+		if(initialLetter == null){
+			UserUtils.setUserInitialLetter(this);
+		}
+		return initialLetter;
+	}
+
+	public void setInitialLetter(String initialLetter) {
+		this.initialLetter = initialLetter;
+	}
+*/
 
 
 	@Override
@@ -122,7 +124,7 @@ public class User implements Serializable {
 
 	public String getInitialLetter() {
 		if(initialLetter == null){
-			EaseCommonUtils.setAppUserInitialLetter(this);
+		EaseCommonUtils.setAppUserInitialLetter(this);
 		}
 		return initialLetter;
 	}
