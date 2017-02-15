@@ -126,4 +126,8 @@ public class FriendProfileActivity extends BaseActivity {
         Log.e("FriendProfile","添加好友"+user);
         MFGT.gotoAddFriendActivity(this,user.getMUserName());
     }
+    @OnClick(R.id.btn_sendMessage)
+    public void sendMessage(){
+        MFGT.gotoChat(this,user.getMUserName());
+    }
 }
