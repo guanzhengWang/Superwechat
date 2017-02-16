@@ -49,10 +49,14 @@ public class EaseUserUtils {
      * @param username
      */
     public static void setUserAvatar(Context context, String username, ImageView imageView){
-    	EaseUser user = getUserInfo(username);
+    	User user = getAppUserInfo(username);
         if(user != null && user.getAvatar() != null){
-            setUserAvatarbyPath(context,user.getAvatar(),imageView);
-        }else{
+            setAppUserAvatar(context,user.getAvatar(),imageView);
+        }else if(username!=null){
+            user=new User(username);
+            setAppUserAvatar(context,user.getAvatar(),imageView);
+        }
+        else{
             Glide.with(context).load(R.drawable.ease_default_avatar).into(imageView);
         }
     }
