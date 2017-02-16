@@ -1,6 +1,7 @@
 package cn.ucai.superwechat.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -129,5 +130,11 @@ public class FriendProfileActivity extends BaseActivity {
     @OnClick(R.id.btn_sendMessage)
     public void sendMessage(){
         MFGT.gotoChat(this,user.getMUserName());
+    }
+    @OnClick(R.id.btn_sendVideo)
+    public void sendVideo(){
+        startActivity(new Intent(this,VideoCallActivity.class)
+                .putExtra("username",user.getMUserName())
+                .putExtra("isComingCall",false));
     }
 }
