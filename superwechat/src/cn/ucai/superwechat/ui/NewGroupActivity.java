@@ -38,6 +38,7 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMGroupManager.EMGroupOptions;
 import com.hyphenate.chat.EMGroupManager.EMGroupStyle;
+import com.hyphenate.easeui.domain.Group;
 import com.hyphenate.easeui.domain.User;
 import com.hyphenate.easeui.utils.EaseImageUtils;
 import com.hyphenate.easeui.utils.EaseUserUtils;
@@ -179,22 +180,58 @@ public class NewGroupActivity extends BaseActivity {
             }
         }).start();
     }
-    private void createAppGroup(EMGroup group) {
+    private void createAppGroup(final EMGroup group) {
 
         NetDao.createAppGroup(this, group, file, new OnCompleteListener<String>() {
             @Override
             public void onSuccess(String s) {
                 if (s != null) {
-                    Result result = ResultUtils.getResultFromJson(s, User.class);
+                    Result result = ResultUtils.getResultFromJson(s,Group.class);
                     if (result != null && result.isRetMsg()) {
-                        createGroupSuccess();
+                        if(group.getMemberCount()>1){
+                            addGroupMembers(group);
+                        }else {
+                            createGroupSuccess();
+                        }
+                    }else {
+                        progressDialog.dismiss();
+                        if(result.getRetCode()==I.MSG_GROUP_HXID_EXISTS){
+                            CommonUtils.showLongToast("环信Id已存在");
+                        }if (result.getRetCode()==I.MSG_GROUP_CREATE_FAIL)
+                            CommonUtils.showLongToast(R.string.Failed_to_create_groups);
                     }
                 }
             }
 
             @Override
             public void onError(String error) {
+                CommonUtils.showLongToast(R.string.Failed_to_create_groups);
+            }
+        });
+    }
 
+    private void addGroupMembers(EMGroup group) {
+        NetDao.addGroupMembers(this, group.getMembers().toString(), group.getGroupId(), new OnCompleteListener<String>() {
+            @Override
+            public void onSuccess(String s) {
+                progressDialog.dismiss();
+                boolean success=false;
+                if (s != null) {
+                    Result result = ResultUtils.getResultFromJson(s,Group.class);
+                    if (result != null && result.isRetMsg()) {
+                        createGroupSuccess();
+                        success=true;
+                    }
+                }
+                if(!success){
+                    CommonUtils.showLongToast(R.string.Failed_to_create_groups);
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                progressDialog.dismiss();
+                CommonUtils.showLongToast(R.string.Failed_to_create_groups);
             }
         });
     }
@@ -202,7 +239,9 @@ public class NewGroupActivity extends BaseActivity {
     public void createGroupSuccess() {
         runOnUiThread(new Runnable() {
             public void run() {
-                progressDialog.dismiss();
+                if(progressDialog!=null&&progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
                 setResult(RESULT_OK);
                 finish();
             }
