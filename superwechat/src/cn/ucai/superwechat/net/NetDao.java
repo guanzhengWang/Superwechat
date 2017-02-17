@@ -2,6 +2,7 @@ package cn.ucai.superwechat.net;
 
 import android.content.Context;
 
+import com.hyphenate.chat.EMGroup;
 import com.hyphenate.easeui.domain.User;
 
 import java.io.File;
@@ -89,6 +90,20 @@ public class NetDao {
                 .addParam(I.Contact.USER_NAME,username)
                 .addParam(I.Contact.CU_NAME,cname)
                 .targetClass(String.class)
+                .execute(listener);
+    }
+    public static void createAppGroup(Context context, EMGroup group, File file, OnCompleteListener<String> listener){
+        OkHttpUtils<String> utils=new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_CREATE_GROUP)
+                .addParam(I.Group.HX_ID,group.getGroupId())
+                .addParam(I.Group.NAME,group.getGroupName())
+                .addParam(I.Group.DESCRIPTION,group.getDescription())
+                .addParam(I.Group.OWNER,group.getOwner())
+                .addParam(I.Group.IS_PUBLIC, String.valueOf(group.isPublic()))
+                .addParam(I.Group.ALLOW_INVITES, String.valueOf(group.isAllowInvites()))
+                .targetClass(String.class)
+                .addFile2(file)
+                .post()
                 .execute(listener);
     }
 }
