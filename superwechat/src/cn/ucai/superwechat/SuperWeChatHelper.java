@@ -766,6 +766,7 @@ public class SuperWeChatHelper {
         if(inviteMessgeDao == null){
             inviteMessgeDao = new InviteMessgeDao(appContext);
         }
+        if(msg.getGroupId()==null){
         NetDao.GetUserByUsername(appContext, msg.getFrom(), new OnCompleteListener<String>() {
         @Override
         public void onSuccess(String s) {
@@ -791,7 +792,7 @@ public class SuperWeChatHelper {
             inviteMessgeDao.saveMessage(msg);
 
         }
-    });
+    });}
 
         //increase the unread message count
         inviteMessgeDao.saveUnreadMessageCount(1);

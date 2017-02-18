@@ -50,6 +50,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -166,7 +167,7 @@ public class NewGroupActivity extends BaseActivity {
                     }
                     EMGroup group = EMClient.getInstance().groupManager().createGroup(groupName, desc, members, reason, option);
                     String hxid = group.getGroupId();
-                    createAppGroup(group);
+                    createAppGroup(group,  members);
 
                 } catch (final HyphenateException e) {
                     runOnUiThread(new Runnable() {
@@ -180,7 +181,7 @@ public class NewGroupActivity extends BaseActivity {
             }
         }).start();
     }
-    private void createAppGroup(final EMGroup group) {
+    private void createAppGroup(final EMGroup group,final String[] members) {
 
         NetDao.createAppGroup(this, group, file, new OnCompleteListener<String>() {
             @Override
@@ -188,8 +189,8 @@ public class NewGroupActivity extends BaseActivity {
                 if (s != null) {
                     Result result = ResultUtils.getResultFromJson(s,Group.class);
                     if (result != null && result.isRetMsg()) {
-                        if(group.getMemberCount()>1){
-                            addGroupMembers(group);
+                        if(members!=null&&members.length>1){
+                            addGroupMembers(group.getGroupId(),members);
                         }else {
                             createGroupSuccess();
                         }
@@ -210,8 +211,8 @@ public class NewGroupActivity extends BaseActivity {
         });
     }
 
-    private void addGroupMembers(EMGroup group) {
-        NetDao.addGroupMembers(this, group.getMembers().toString(), group.getGroupId(), new OnCompleteListener<String>() {
+    private void addGroupMembers(String hxid,String [] members) {
+        NetDao.addGroupMembers(this, getGroupMembers(members), hxid, new OnCompleteListener<String>() {
             @Override
             public void onSuccess(String s) {
                 progressDialog.dismiss();
@@ -234,6 +235,16 @@ public class NewGroupActivity extends BaseActivity {
                 CommonUtils.showLongToast(R.string.Failed_to_create_groups);
             }
         });
+    }
+
+    private String getGroupMembers(String [] members) {
+        String memberStr="";
+        if(members.length>0){
+            for(String s:members){
+                memberStr+=s+",";
+            }
+        }
+        return memberStr;
     }
 
     public void createGroupSuccess() {
