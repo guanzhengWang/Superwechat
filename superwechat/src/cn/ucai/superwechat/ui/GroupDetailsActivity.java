@@ -395,6 +395,15 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
 			}
 		}).start();
 	}
+	private String getGroupMembers(String [] members) {
+		String memberStr="";
+		if(members.length>0){
+			for(String s:members){
+				memberStr+=s+",";
+			}
+		}
+		return memberStr;
+	}
 
 	/**
 	 * 增加群成员
@@ -420,6 +429,17 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
 							((TextView) findViewById(R.id.group_name)).setText(group.getGroupName() + "(" + group.getMemberCount()
 									+ st);
 							progressDialog.dismiss();
+						}
+					});
+					NetDao.addGroupMembers(getContext(), getGroupMembers(newmembers), groupId, new OnCompleteListener<String>() {
+						@Override
+						public void onSuccess(String result) {
+
+						}
+
+						@Override
+						public void onError(String error) {
+
 						}
 					});
 				} catch (final Exception e) {
