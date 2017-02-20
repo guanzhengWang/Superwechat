@@ -86,4 +86,5 @@ public class MFGT {
     public static void gotoMain(Activity activity) {
         startActivity(activity, new Intent(activity,MainActivity.class).putExtra(I.BACK_MAIN_FROM_CHAT,true));
     }
+
 }
