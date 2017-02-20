@@ -97,7 +97,7 @@ public class FriendProfileActivity extends BaseActivity {
 
     private void showUserInfo() {
         tvUsernick.setText(user.getMUserNick());
-        EaseUserUtils.setUserAvatarbyPath(this, user.getAvatar(), userHeadAvatar);
+        EaseUserUtils.setUserAvatarbyPath(this, user.getAvatar(), userHeadAvatar,null);
         tvUsername.setText("微信号:" + user.getMUserName());
         if (isFriend()) {
             btnSendMessage.setVisibility(View.VISIBLE);
